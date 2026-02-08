@@ -2,57 +2,76 @@ name: Daily Market Intelligence Update
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # 6 AM UTC daily
-  workflow_dispatch:  # Manual trigger
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for data tracking
+          fetch-depth: 0
+          submodules: recursive
       
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
       
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          wget https://github.com/gohugoio/hugo/releases/download/v0.124.1/hugo_extended_0.124.1_linux-amd64.deb
-          sudo dpkg -i hugo_extended_0.124.1_linux-amd64.deb
+        run: pip install -r requirements.txt
+      
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.124.1'
+          extended: true
       
       - name: Fetch market data
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/fetch_data.py
+        continue-on-error: true
       
       - name: Generate content
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python scripts/generate_content.py
+        continue-on-error: true
       
-      - name: Build site with Hugo
-        run: |
-          hugo --minify
-          python scripts/inject_affiliates.py  # Post-build link replacement
+      - name: Build site
+        run: hugo --minify --gc
+      
+      - name: Inject affiliate links
+        run: python scripts/inject_affiliates.py
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
       
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+        id: deployment
+        uses: actions/deploy-pages@v4
       
-      - name: Health check & notify
+      - name: Health check
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           ALERT_EMAIL: ${{ secrets.ALERT_EMAIL }}
         run: python scripts/health_check.py
+        continue-on-error: true
