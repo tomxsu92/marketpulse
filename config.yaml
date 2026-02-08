@@ -1,0 +1,52 @@
+baseURL: 'https://YOUR_USERNAME.github.io/marketpulse-ai/'
+languageCode: 'en-us'
+title: 'MarketPulse AI - B2B SaaS Intelligence'
+theme: 'ananke'
+
+params:
+  author: 'MarketPulse AI'
+  description: 'Automated market intelligence for B2B software buyers'
+  affiliate_disclaimer: 'This site contains affiliate links. We may earn a commission at no extra cost to you.'
+  
+  ananke_socials:
+    - name: github
+      url: 'https://github.com/YOUR_USERNAME/marketpulse-ai'
+  
+  body_classes: 'bg-near-white'
+  post_content_classes: 'f5 f4-l'
+
+menu:
+  main:
+    - identifier: tools
+      name: Tool Reviews
+      url: /tools/
+      weight: 10
+    - identifier: comparisons
+      name: Comparisons
+      url: /comparisons/
+      weight: 20
+    - identifier: trends
+      name: Market Trends
+      url: /trends/
+      weight: 30
+    - identifier: disclosure
+      name: Disclosure
+      url: /affiliate-disclosure/
+      weight: 100
+
+outputs:
+  home: ["HTML", "RSS", "JSON"]
+  page: ["HTML"]
+  section: ["HTML", "RSS"]
+
+sitemap:
+  changefreq: 'daily'
+  priority: 0.8
+  filename: 'sitemap.xml'
+
+permalinks:
+  tools: /tools/:slug/
+  comparisons: /comparisons/:slug/
+
+paginate: 10
+enableRobotsTXT: true
