@@ -1,4 +1,4 @@
-baseURL: 'https://YOUR_USERNAME.github.io/marketpulse-ai/'
+baseURL: 'https://tomxsu92.github.io/marketpulse-ai/'
 languageCode: 'en-us'
 title: 'MarketPulse AI - B2B SaaS Intelligence'
 theme: 'ananke'
@@ -10,7 +10,7 @@ params:
   
   ananke_socials:
     - name: github
-      url: 'https://github.com/YOUR_USERNAME/marketpulse-ai'
+      url: 'https://github.com/tomxsu92/marketpulse-ai'
   
   body_classes: 'bg-near-white'
   post_content_classes: 'f5 f4-l'
