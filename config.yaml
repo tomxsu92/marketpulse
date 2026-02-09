@@ -1,7 +1,7 @@
 baseURL: 'https://tomxsu92.github.io/marketpulse-ai/'
 languageCode: 'en-us'
 title: 'MarketPulse AI - B2B SaaS Intelligence'
-theme: 'ananke'
+# theme: 'ananke'
 
 params:
   author: 'MarketPulse AI'
