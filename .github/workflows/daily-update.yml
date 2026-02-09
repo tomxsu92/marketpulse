@@ -44,21 +44,62 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python scripts/generate_content.py
         continue-on-error: true
-      
+            
+      - name: List generated content
+        run: |
+          echo "=== Generated Content ==="
+          ls -la content/tools/ || echo "No tools folder"
+          ls -la content/comparisons/ || echo "No comparisons folder"
+          echo "=== Content Preview ==="
+          head -20 content/tools/*.md 2>/dev/null || echo "No tool reviews yet"
+     
       - name: Build site
         run: |
-          mkdir -p public
-          cp content/_index.md public/index.md 2>/dev/null || true
-          echo "# MarketPulse AI" > public/index.html
-          echo "Automated B2B SaaS Intelligence" >> public/index.html
-          echo "<ul>" >> public/index.html
-          for f in content/tools/*.md; do 
+          mkdir -p public/tools public/comparisons
+          
+          # Create main index
+          cat > public/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>MarketPulse AI - B2B SaaS Intelligence</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+              h1 { color: #333; }
+              .nav { margin: 20px 0; padding: 10px; background: #f5f5f5; }
+              .nav a { margin-right: 20px; text-decoration: none; color: #0066cc; }
+              .article { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+              .date { color: #666; font-size: 14px; }
+            </style>
+          </head>
+          <body>
+            <h1>MarketPulse AI</h1>
+            <p>Automated market intelligence for B2B software buyers</p>
+            
+            <div class="nav">
+              <a href="/marketpulse-ai/">Home</a>
+              <a href="/marketpulse-ai/tools/">Tool Reviews</a>
+              <a href="/marketpulse-ai/comparisons/">Comparisons</a>
+            </div>
+            
+            <h2>Latest Reviews</h2>
+          EOF
+          
+          # Add links to generated content
+          for f in content/tools/*.md; do
             if [ -f "$f" ]; then
-              title=$(grep "^title:" "$f" | head -1 | sed 's/title: //' | tr -d '"');
-              echo "<li><a href='$f'>$title</a></li>" >> public/index.html;
+              title=$(grep "^title:" "$f" | head -1 | sed 's/title: //' | sed 's/"//g')
+              filename=$(basename "$f" .md)
+              echo "<div class='article'><a href='tools/$filename.html'><h3>$title</h3></a></div>" >> public/index.html
+              # Convert markdown to simple HTML
+              cat "$f" | sed 's/^# /<h1>/' | sed 's/^## /<h2>/' | sed 's/^### /<h3>/' > "public/tools/$filename.html"
             fi
           done
-          echo "</ul>" >> public/index.html
+          
+          # Close HTML
+          echo "</body></html>" >> public/index.html
+          
+          echo "Site built with content"
       
       - name: Inject affiliate links
         run: python scripts/inject_affiliates.py
