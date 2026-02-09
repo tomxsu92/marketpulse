@@ -33,12 +33,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: '0.124.1'
-          extended: true
-      
       - name: Fetch market data
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -52,7 +46,19 @@ jobs:
         continue-on-error: true
       
       - name: Build site
-        run: hugo --minify --gc
+        run: |
+          mkdir -p public
+          cp content/_index.md public/index.md 2>/dev/null || true
+          echo "# MarketPulse AI" > public/index.html
+          echo "Automated B2B SaaS Intelligence" >> public/index.html
+          echo "<ul>" >> public/index.html
+          for f in content/tools/*.md; do 
+            if [ -f "$f" ]; then
+              title=$(grep "^title:" "$f" | head -1 | sed 's/title: //' | tr -d '"');
+              echo "<li><a href='$f'>$title</a></li>" >> public/index.html;
+            fi
+          done
+          echo "</ul>" >> public/index.html
       
       - name: Inject affiliate links
         run: python scripts/inject_affiliates.py
