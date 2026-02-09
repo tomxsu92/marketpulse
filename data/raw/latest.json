@@ -1,0 +1,209 @@
+{
+  "timestamp": "2026-02-09T04:41:31.988577",
+  "tools": [
+    {
+      "tool": "Notion",
+      "category": "project-management",
+      "affiliate_url": "https://www.notion.so/?r=referral",
+      "pricing_url": "https://www.notion.so/pricing",
+      "alternatives": [
+        "Evernote",
+        "OneNote",
+        "Roam Research"
+      ],
+      "timestamp": "2026-02-09T04:41:32.210134",
+      "pricing_tiers": [
+        {
+          "name": "Free",
+          "price": 0,
+          "features": [
+            "Basic features",
+            "Limited storage"
+          ]
+        },
+        {
+          "name": "Pro",
+          "price": "Variable",
+          "features": [
+            "Advanced features",
+            "Priority support"
+          ]
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "features": [
+            "SSO",
+            "Advanced security",
+            "Dedicated support"
+          ]
+        }
+      ],
+      "last_updated": "2026-02-09"
+    },
+    {
+      "tool": "Airtable",
+      "category": "database",
+      "affiliate_url": "https://airtable.com/invite/r/referral",
+      "pricing_url": "https://www.airtable.com/pricing",
+      "alternatives": [
+        "Google Sheets",
+        "Smartsheet",
+        "Monday.com"
+      ],
+      "timestamp": "2026-02-09T04:41:33.210456",
+      "pricing_tiers": [
+        {
+          "name": "Free",
+          "price": 0,
+          "features": [
+            "Basic features",
+            "Limited storage"
+          ]
+        },
+        {
+          "name": "Pro",
+          "price": "Variable",
+          "features": [
+            "Advanced features",
+            "Priority support"
+          ]
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "features": [
+            "SSO",
+            "Advanced security",
+            "Dedicated support"
+          ]
+        }
+      ],
+      "last_updated": "2026-02-09"
+    },
+    {
+      "tool": "Figma",
+      "category": "design",
+      "affiliate_url": "https://www.figma.com/referral",
+      "pricing_url": "https://www.figma.com/pricing",
+      "alternatives": [
+        "Sketch",
+        "Adobe XD",
+        "InVision"
+      ],
+      "timestamp": "2026-02-09T04:41:34.210601",
+      "pricing_tiers": [
+        {
+          "name": "Free",
+          "price": 0,
+          "features": [
+            "Basic features",
+            "Limited storage"
+          ]
+        },
+        {
+          "name": "Pro",
+          "price": "Variable",
+          "features": [
+            "Advanced features",
+            "Priority support"
+          ]
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "features": [
+            "SSO",
+            "Advanced security",
+            "Dedicated support"
+          ]
+        }
+      ],
+      "last_updated": "2026-02-09"
+    },
+    {
+      "tool": "Linear",
+      "category": "issue-tracking",
+      "affiliate_url": "https://linear.app/referral",
+      "pricing_url": "https://linear.app/pricing",
+      "alternatives": [
+        "Jira",
+        "Asana",
+        "Trello"
+      ],
+      "timestamp": "2026-02-09T04:41:35.210775",
+      "pricing_tiers": [
+        {
+          "name": "Free",
+          "price": 0,
+          "features": [
+            "Basic features",
+            "Limited storage"
+          ]
+        },
+        {
+          "name": "Pro",
+          "price": "Variable",
+          "features": [
+            "Advanced features",
+            "Priority support"
+          ]
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "features": [
+            "SSO",
+            "Advanced security",
+            "Dedicated support"
+          ]
+        }
+      ],
+      "last_updated": "2026-02-09"
+    },
+    {
+      "tool": "HubSpot",
+      "category": "crm",
+      "affiliate_url": "https://www.hubspot.com/referral",
+      "pricing_url": "https://www.hubspot.com/pricing/marketing",
+      "alternatives": [
+        "Salesforce",
+        "Pipedrive",
+        "Zoho CRM"
+      ],
+      "timestamp": "2026-02-09T04:41:36.210936",
+      "pricing_tiers": [
+        {
+          "name": "Free",
+          "price": 0,
+          "features": [
+            "Basic features",
+            "Limited storage"
+          ]
+        },
+        {
+          "name": "Pro",
+          "price": "Variable",
+          "features": [
+            "Advanced features",
+            "Priority support"
+          ]
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "features": [
+            "SSO",
+            "Advanced security",
+            "Dedicated support"
+          ]
+        }
+      ],
+      "last_updated": "2026-02-09"
+    }
+  ],
+  "trends": {
+    "github": [],
+    "product_hunt": []
+  }
+}
