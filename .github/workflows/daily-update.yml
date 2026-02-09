@@ -222,69 +222,69 @@ jobs:
               
               # Create styled individual tool page
               cat > "public/tools/$filename.html" << HTMLSTART
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>$title</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6; 
-      color: #333;
-      background: #f8f9fa;
-    }
-    .container { max-width: 800px; margin: 0 auto; padding: 20px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-    .nav { 
-      padding: 20px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #667eea;
-    }
-    .nav a { 
-      margin-right: 20px;
-      text-decoration: none;
-      color: #667eea;
-      font-weight: 600;
-    }
-    .nav a:hover { color: #764ba2; }
-    h1 { color: #333; margin-bottom: 20px; font-size: 2.5em; line-height: 1.2; }
-    h2 { color: #667eea; margin-top: 40px; margin-bottom: 15px; font-size: 1.8em; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    h3 { color: #555; margin-top: 25px; margin-bottom: 10px; }
-    p { margin-bottom: 15px; font-size: 1.1em; }
-    strong { color: #667eea; }
-    ul, ol { margin-bottom: 20px; padding-left: 30px; }
-    li { margin-bottom: 8px; }
-    .disclaimer { 
-      margin-top: 50px;
-      padding: 20px;
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      font-size: 0.9em;
-      border-radius: 0 8px 8px 0;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="nav">
-      <a href="../index.html">← Home</a>
-      <a href="./index.html">All Reviews</a>
-    </div>
-HTMLSTART
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>$title</title>
+              <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body { 
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+              line-height: 1.6; 
+              color: #333;
+              background: #f8f9fa;
+              }
+              .container { max-width: 800px; margin: 0 auto; padding: 20px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+              .nav { 
+              padding: 20px 0;
+              margin-bottom: 30px;
+              border-bottom: 2px solid #667eea;
+              }
+              .nav a { 
+              margin-right: 20px;
+              text-decoration: none;
+              color: #667eea;
+              font-weight: 600;
+              }
+              .nav a:hover { color: #764ba2; }
+              h1 { color: #333; margin-bottom: 20px; font-size: 2.5em; line-height: 1.2; }
+              h2 { color: #667eea; margin-top: 40px; margin-bottom: 15px; font-size: 1.8em; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+              h3 { color: #555; margin-top: 25px; margin-bottom: 10px; }
+              p { margin-bottom: 15px; font-size: 1.1em; }
+              strong { color: #667eea; }
+              ul, ol { margin-bottom: 20px; padding-left: 30px; }
+              li { margin-bottom: 8px; }
+              .disclaimer { 
+              margin-top: 50px;
+              padding: 20px;
+              background: #fff3cd;
+              border-left: 4px solid #ffc107;
+              font-size: 0.9em;
+              border-radius: 0 8px 8px 0;
+              }
+              </style>
+              </head>
+              <body>
+              <div class="container">
+              <div class="nav">
+              <a href="../index.html">← Home</a>
+              <a href="./index.html">All Reviews</a>
+              </div>
+              HTMLSTART
               
               # Convert markdown content (skip frontmatter - first 20 lines)
               tail -n +20 "$f" | sed 's/^# /<h1>/' | sed 's/^## /<h2>/' | sed 's/^### /<h3>/' | sed 's/\*\*/<strong>/g' | sed 's/\*\*/<\/strong>/g' >> "public/tools/$filename.html"
               
               cat >> "public/tools/$filename.html" << 'HTMLEND'
-    <div class="disclaimer">
-      <strong>Disclosure:</strong> This review contains affiliate links. We may earn a commission at no extra cost to you.
-    </div>
-  </div>
-</body>
-</html>
-HTMLEND
+              <div class="disclaimer">
+              <strong>Disclosure:</strong> This review contains affiliate links. We may earn a commission at no extra cost to you.
+              </div>
+              </div>
+              </body>
+              </html>
+              HTMLEND
               
               article_count=$((article_count + 1))
             fi
@@ -319,87 +319,87 @@ HTMLEND
           
           # Create styled tools listing page
           cat > public/tools/index.html << 'EOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tool Reviews - MarketPulse AI</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6; 
-      color: #333;
-      background: #f8f9fa;
-    }
-    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-    header { 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    header h1 { font-size: 2.5em; margin-bottom: 10px; }
-    nav { 
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    nav a { 
-      margin: 0 20px;
-      text-decoration: none;
-      color: #667eea;
-      font-weight: 600;
-    }
-    .article { 
-      background: white;
-      margin: 15px 0;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .article h3 { margin-bottom: 8px; }
-    .article h3 a { color: #333; text-decoration: none; }
-    .article h3 a:hover { color: #667eea; }
-    .badge {
-      display: inline-block;
-      background: #667eea;
-      color: white;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.7em;
-      font-weight: 600;
-      margin-right: 10px;
-      text-transform: uppercase;
-    }
-    .disclaimer { 
-      margin-top: 40px;
-      padding: 20px;
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      font-size: 0.9em;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Tool Reviews</h1>
-    <p>Comprehensive software analysis</p>
-  </header>
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Tool Reviews - MarketPulse AI</title>
+          <style>
+           * { margin: 0; padding: 0; box-sizing: border-box; }
+           body { 
+           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+           line-height: 1.6; 
+           color: #333;
+            background: #f8f9fa;
+           }
+          .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+           header { 
+           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+           color: white;
+           padding: 40px 20px;
+           text-align: center;
+           margin-bottom: 30px;
+           }
+           header h1 { font-size: 2.5em; margin-bottom: 10px; }
+           nav { 
+           background: white;
+           padding: 15px;
+           border-radius: 8px;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+           margin-bottom: 30px;
+           text-align: center;
+          }
+          nav a { 
+          margin: 0 20px;
+          text-decoration: none;
+          color: #667eea;
+          font-weight: 600;
+          }
+          .article { 
+          background: white;
+          margin: 15px 0;
+           padding: 25px;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          }
+          .article h3 { margin-bottom: 8px; }
+          .article h3 a { color: #333; text-decoration: none; }
+          .article h3 a:hover { color: #667eea; }
+          .badge {
+          display: inline-block;
+          background: #667eea;
+           color: white;
+           padding: 3px 10px;
+          border-radius: 20px;
+          font-size: 0.7em;
+           font-weight: 600;
+           margin-right: 10px;
+          text-transform: uppercase;
+           }
+          .disclaimer { 
+          margin-top: 40px;
+          padding: 20px;
+          background: #fff3cd;
+          border-left: 4px solid #ffc107;
+           font-size: 0.9em;
+          }
+          </style>
+          </head>
+          <body>
+          <header>
+          <h1>Tool Reviews</h1>
+          <p>Comprehensive software analysis</p>
+          </header>
   
-  <div class="container">
-    <nav>
-      <a href="../index.html">← Home</a>
-      <a href="../comparisons/index.html">Comparisons</a>
-    </nav>
+          <div class="container">
+          <nav>
+          <a href="../index.html">← Home</a>
+          <a href="../comparisons/index.html">Comparisons</a>
+          </nav>
     
-    <h2 style="margin-bottom: 20px;">All Reviews</h2>
-EOF
+           <h2 style="margin-bottom: 20px;">All Reviews</h2>
+          EOF
           
           for f in content/tools/*.md; do
             if [ -f "$f" ] && [ "$(basename "$f")" != "_index.md" ]; then
@@ -414,92 +414,92 @@ EOF
           done
           
           echo "<div class='disclaimer'>
-    <strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.
-  </div>
-  </div></body></html>" >> public/tools/index.html
+          <strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.
+          </div>
+          </div></body></html>" >> public/tools/index.html
           
           # Create styled comparisons listing page
           cat > public/comparisons/index.html << 'EOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparisons - MarketPulse AI</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6; 
-      color: #333;
-      background: #f8f9fa;
-    }
-    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-    header { 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    header h1 { font-size: 2.5em; margin-bottom: 10px; }
-    nav { 
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    nav a { 
-      margin: 0 20px;
-      text-decoration: none;
-      color: #667eea;
-      font-weight: 600;
-    }
-    .article { 
-      background: white;
-      margin: 15px 0;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .article h3 { margin-bottom: 8px; }
-    .article h3 a { color: #333; text-decoration: none; }
-    .article h3 a:hover { color: #667eea; }
-    .vs-badge {
-      display: inline-block;
-      background: #764ba2;
-      color: white;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.7em;
-      font-weight: 600;
-      margin-right: 10px;
-    }
-    .disclaimer { 
-      margin-top: 40px;
-      padding: 20px;
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      font-size: 0.9em;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Comparisons</h1>
-    <p>Side-by-side software analysis</p>
-  </header>
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Comparisons - MarketPulse AI</title>
+          <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { 
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          line-height: 1.6; 
+          color: #333;
+          background: #f8f9fa;
+          }
+          .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+          header { 
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          padding: 40px 20px;
+          text-align: center;
+          margin-bottom: 30px;
+          }
+          header h1 { font-size: 2.5em; margin-bottom: 10px; }
+          nav { 
+          background: white;
+          padding: 15px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          margin-bottom: 30px;
+          text-align: center;
+          }
+          nav a { 
+          margin: 0 20px;
+          text-decoration: none;
+          color: #667eea;
+          font-weight: 600;
+          }
+          .article { 
+          background: white;
+          margin: 15px 0;
+          padding: 25px;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1)
+          }
+          .article h3 { margin-bottom: 8px; }
+          .article h3 a { color: #333; text-decoration: none; }
+          .article h3 a:hover { color: #667eea; }
+          .vs-badge {
+          display: inline-block;
+          background: #764ba2;
+          color: white;
+          padding: 3px 10px;
+          border-radius: 20px;
+          font-size: 0.7em;
+          font-weight: 600;
+          margin-right: 10px;
+          }
+          .disclaimer { 
+          margin-top: 40px;
+          padding: 20px;
+          background: #fff3cd;
+          border-left: 4px solid #ffc107;
+          font-size: 0.9em;
+          }
+          </style>
+          </head>
+          <body>
+          <header>
+          <h1>Comparisons</h1>
+          <p>Side-by-side software analysis</p>
+          </header>
   
-  <div class="container">
-    <nav>
-      <a href="../index.html">← Home</a>
-      <a href="../tools/index.html">Tool Reviews</a>
-    </nav>
+          <div class="container">
+          <nav>
+          <a href="../index.html">← Home</a>
+          <a href="../tools/index.html">Tool Reviews</a>
+          </nav>
     
-    <h2 style="margin-bottom: 20px;">Head-to-Head Comparisons</h2>
-EOF
+          <h2 style="margin-bottom: 20px;">Head-to-Head Comparisons</h2>
+          EOF
           
           # Add comparison listings
           for f in content/comparisons/*.md; do
@@ -514,9 +514,9 @@ EOF
           done
           
           echo "<div class='disclaimer'>
-    <strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.
-  </div>
-  </div></body></html>" >> public/comparisons/index.html
+          <strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.
+          </div>
+          </div></body></html>" >> public/comparisons/index.html
           
           # CREATE INDIVIDUAL COMPARISON PAGES - THIS IS THE FIX
           for f in content/comparisons/*.md; do
@@ -525,89 +525,89 @@ EOF
               filename=$(basename "$f" .md)
               
               cat > "public/comparisons/$filename.html" << COMPHTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>$title</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6; 
-      color: #333;
-      background: #f8f9fa;
-    }
-    .container { max-width: 800px; margin: 0 auto; padding: 20px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-    .nav { 
-      padding: 20px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #667eea;
-    }
-    .nav a { 
-      margin-right: 20px;
-      text-decoration: none;
-      color: #667eea;
-      font-weight: 600;
-    }
-    .nav a:hover { color: #764ba2; }
-    h1 { color: #333; margin-bottom: 20px; font-size: 2.5em; line-height: 1.2; }
-    h2 { color: #667eea; margin-top: 40px; margin-bottom: 15px; font-size: 1.8em; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    h3 { color: #555; margin-top: 25px; margin-bottom: 10px; }
-    p { margin-bottom: 15px; font-size: 1.1em; }
-    strong { color: #667eea; }
-    ul, ol { margin-bottom: 20px; padding-left: 30px; }
-    li { margin-bottom: 8px; }
-    table { 
-      width: 100%; 
-      border-collapse: collapse; 
-      margin: 20px 0;
-      background: #f8f9fa;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    th { 
-      background: #667eea; 
-      color: white; 
-      padding: 12px;
-      text-align: left;
-    }
-    td { 
-      padding: 12px; 
-      border-bottom: 1px solid #ddd;
-    }
-    tr:hover { background: #f0f0f0; }
-    .disclaimer { 
-      margin-top: 50px;
-      padding: 20px;
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      font-size: 0.9em;
-      border-radius: 0 8px 8px 0;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="nav">
-      <a href="../index.html">← Home</a>
-      <a href="./index.html">All Comparisons</a>
-    </div>
-    <h1>$title</h1>
-COMPHTML
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>$title</title>
+          <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { 
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          line-height: 1.6; 
+          color: #333;
+          background: #f8f9fa;
+            }
+          .container { max-width: 800px; margin: 0 auto; padding: 20px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+          .nav { 
+          padding: 20px 0;
+          margin-bottom: 30px;
+          border-bottom: 2px solid #667eea;
+          }
+          .nav a { 
+          margin-right: 20px;
+          text-decoration: none;
+          color: #667eea;
+          font-weight: 600;
+          }
+          .nav a:hover { color: #764ba2; }
+          h1 { color: #333; margin-bottom: 20px; font-size: 2.5em; line-height: 1.2; }
+          h2 { color: #667eea; margin-top: 40px; margin-bottom: 15px; font-size: 1.8em; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+          h3 { color: #555; margin-top: 25px; margin-bottom: 10px; }
+          p { margin-bottom: 15px; font-size: 1.1em; }
+          strong { color: #667eea; }
+          ul, ol { margin-bottom: 20px; padding-left: 30px; }
+          li { margin-bottom: 8px; }
+          table { 
+          width: 100%; 
+          border-collapse: collapse; 
+          margin: 20px 0;
+          background: #f8f9fa;
+          border-radius: 8px;
+          overflow: hidden;
+          }
+          th { 
+          background: #667eea; 
+          color: white; 
+          padding: 12px;
+          text-align: left;
+          }
+          td { 
+          padding: 12px; 
+          border-bottom: 1px solid #ddd;
+          }
+          tr:hover { background: #f0f0f0; }
+          .disclaimer { 
+          margin-top: 50px;
+          padding: 20px;
+          background: #fff3cd;
+          border-left: 4px solid #ffc107;
+          font-size: 0.9em;
+          border-radius: 0 8px 8px 0;
+          }
+          </style>
+          </head>
+          <body>
+          <div class="container">
+          <div class="nav">
+          <a href="../index.html">← Home</a>
+          <a href="./index.html">All Comparisons</a>
+          </div>
+          <h1>$title</h1>
+          COMPHTML
               
               # Convert markdown content (skip frontmatter)
               tail -n +20 "$f" | sed 's/^# /<h2>/' | sed 's/^## /<h3>/' | sed 's/^### /<h4>/' | sed 's/\*\*/<strong>/g' | sed 's/\*\*/<\/strong>/g' >> "public/comparisons/$filename.html"
               
               cat >> "public/comparisons/$filename.html" << 'COMPHTMLEND'
-    <div class="disclaimer">
-      <strong>Disclosure:</strong> This comparison contains affiliate links. We may earn a commission at no extra cost to you.
-    </div>
-  </div>
-</body>
-</html>
-COMPHTMLEND
+            <div class="disclaimer">
+            <strong>Disclosure:</strong> This comparison contains affiliate links. We may earn a commission at no extra cost to you.
+            </div>
+            </div>
+            </body>
+            </html>
+            COMPHTMLEND
             fi
           done
           
