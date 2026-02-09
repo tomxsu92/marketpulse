@@ -78,9 +78,9 @@ jobs:
             <p style="font-size: 18px; color: #555;">Automated market intelligence for B2B software buyers</p>
             
             <div class="nav">
-              <a href="/marketpulse-ai/">Home</a>
-              <a href="/marketpulse-ai/tools/">Tool Reviews</a>
-              <a href="/marketpulse-ai/comparisons/">Comparisons</a>
+              <a href="./index.html">Home</a>
+              <a href="./tools/index.html">Tool Reviews</a>
+              <a href="./comparisons/index.html">Comparisons</a>
             </div>
             
             <h2>Latest Reviews</h2>
@@ -88,18 +88,18 @@ jobs:
           
           # Add links to generated content
           for f in content/tools/*.md; do
-            if [ -f "$f" ]; then
+            if [ -f "$f" ] && [ "$(basename "$f")" != "_index.md" ]; then
               title=$(grep "^title:" "$f" | head -1 | sed 's/title: //' | sed 's/"//g')
               date=$(grep "^date:" "$f" | head -1 | sed 's/date: //' | sed 's/"//g' | cut -d'T' -f1)
               filename=$(basename "$f" .md)
               echo "<div class='article'><h3><a href='tools/$filename.html'>$title</a></h3><p class='date'>Published: $date</p></div>" >> public/index.html
               
-              # Convert markdown to HTML (basic conversion)
-              cat > "public/tools/$filename.html" << 'HTMLSTART'
+              # Create individual tool page
+              cat > "public/tools/$filename.html" << HTMLSTART
           <!DOCTYPE html>
           <html>
           <head>
-            <title>Review</title>
+            <title>$title</title>
             <style>
               body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; line-height: 1.6; }
               h1 { color: #333; border-bottom: 2px solid #0066cc; }
@@ -112,12 +112,14 @@ jobs:
           </head>
           <body>
             <div class="nav">
-              <a href="/marketpulse-ai/">← Home</a>
+              <a href="../index.html">← Home</a>
+              <a href="./index.html">All Reviews</a>
             </div>
             <div class="content">
+              <h1>$title</h1>
           HTMLSTART
               
-              # Convert markdown content (skip frontmatter)
+              # Convert markdown content (skip frontmatter - first 20 lines)
               tail -n +20 "$f" | sed 's/^# /<h1>/' | sed 's/^## /<h2>/' | sed 's/^### /<h3>/' | sed 's/\*\*/<strong>/g' | sed 's/\*\*/<\/strong>/g' >> "public/tools/$filename.html"
               
               cat >> "public/tools/$filename.html" << 'HTMLEND'
@@ -135,7 +137,77 @@ jobs:
           echo "<div class='disclaimer'><strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.</div>" >> public/index.html
           echo "</body></html>" >> public/index.html
           
-          echo "Site built successfully"
+          # Create tools listing page
+          cat > public/tools/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Tool Reviews - MarketPulse AI</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; line-height: 1.6; }
+              h1 { color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px; }
+              .nav { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px; }
+              .nav a { margin-right: 20px; text-decoration: none; color: #0066cc; font-weight: bold; }
+              .article { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background: #fafafa; }
+              .disclaimer { margin-top: 30px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; font-size: 14px; }
+            </style>
+          </head>
+          <body>
+            <h1>Tool Reviews</h1>
+            <div class="nav">
+              <a href="../index.html">← Home</a>
+              <a href="../comparisons/index.html">Comparisons</a>
+            </div>
+            <h2>All Software Reviews</h2>
+          EOF
+          
+          for f in content/tools/*.md; do
+            if [ -f "$f" ] && [ "$(basename "$f")" != "_index.md" ]; then
+              title=$(grep "^title:" "$f" | head -1 | sed 's/title: //' | sed 's/"//g')
+              filename=$(basename "$f" .md)
+              echo "<div class='article'><h3><a href='$filename.html'>$title</a></h3></div>" >> public/tools/index.html
+            fi
+          done
+          
+          echo "<div class='disclaimer'><strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.</div>" >> public/tools/index.html
+          echo "</body></html>" >> public/tools/index.html
+          
+          # Create comparisons listing page
+          cat > public/comparisons/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Comparisons - MarketPulse AI</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; line-height: 1.6; }
+              h1 { color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px; }
+              .nav { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px; }
+              .nav a { margin-right: 20px; text-decoration: none; color: #0066cc; font-weight: bold; }
+              .article { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background: #fafafa; }
+              .disclaimer { margin-top: 30px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; font-size: 14px; }
+            </style>
+          </head>
+          <body>
+            <h1>Software Comparisons</h1>
+            <div class="nav">
+              <a href="../index.html">← Home</a>
+              <a href="../tools/index.html">Tool Reviews</a>
+            </div>
+            <h2>Side-by-Side Comparisons</h2>
+          EOF
+          
+          for f in content/comparisons/*.md; do
+            if [ -f "$f" ] && [ "$(basename "$f")" != "_index.md" ]; then
+              title=$(grep "^title:" "$f" | head -1 | sed 's/title: //' | sed 's/"//g')
+              filename=$(basename "$f" .md)
+              echo "<div class='article'><h3><a href='$filename.html'>$title</a></h3></div>" >> public/comparisons/index.html
+            fi
+          done
+          
+          echo "<div class='disclaimer'><strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.</div>" >> public/comparisons/index.html
+          echo "</body></html>" >> public/comparisons/index.html
+          
+          echo "Site built successfully with listing pages"
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
