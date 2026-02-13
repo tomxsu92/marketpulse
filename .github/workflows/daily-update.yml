@@ -38,6 +38,30 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python scripts/fetch_data.py
         continue-on-error: true
+
+      - name: Select tool for today
+        run: |
+          # Create a rotation file if it doesn't exist
+          if [ ! -f data/last_tool_index.txt ]; then
+            echo "0" > data/last_tool_index.txt
+          fi
+          
+          # Read current index
+          INDEX=$(cat data/last_tool_index.txt)
+          
+          # List of tools (must match fetch_data.py order)
+          TOOLS=("Notion" "Airtable" "Figma" "Linear" "HubSpot" "Slack" "Asana" "Monday.com" "ClickUp" "Zoom")
+          
+          # Get tool for today
+          TODAY_TOOL=${TOOLS[$INDEX]}
+          echo "Today reviewing: $TODAY_TOOL"
+          
+          # Save for next day (cycle through)
+          NEXT_INDEX=$(( (INDEX + 1) % ${#TOOLS[@]} ))
+          echo "$NEXT_INDEX" > data/last_tool_index.txt
+          
+          # Set environment variable
+          echo "TODAY_TOOL=$TODAY_TOOL" >> $GITHUB_ENV
       
       - name: Generate content
         env:
