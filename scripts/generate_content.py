@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-"""
-AI Content Generation Engine
-Uses Groq API to generate SEO-optimized content
-"""
 import os
 import json
+import random
 from datetime import datetime
 from pathlib import Path
 from groq import Groq
@@ -91,10 +88,16 @@ def save_content(subdir, filename, content, metadata):
     frontmatter = "\n".join(fm_lines)
     filepath = dir_path / f"{filename}.md"
     
+    # Check if file already exists (avoid duplicates)
+    if filepath.exists():
+        print(f"File already exists: {filepath}, skipping")
+        return None
+    
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(frontmatter + content)
     
     print(f"Generated: {filepath}")
+    return filepath
 
 def main():
     print("Starting content generation...")
@@ -106,9 +109,25 @@ def main():
         print("No tools to process")
         return
     
-    tool = tools[0]
-    print(f"Generating review for {tool['tool']}...")
+    # RANDOM SELECTION - Pick tools we haven't reviewed yet
+    existing_reviews = list((CONTENT_DIR / "tools").glob("*.md"))
+    existing_names = [f.stem.replace("-review", "") for f in existing_reviews if f.name != "_index.md"]
     
+    print(f"Existing reviews: {existing_names}")
+    
+    # Filter out already reviewed tools
+    available_tools = [t for t in tools if t['tool'].lower().replace(" ", "-") not in existing_names]
+    
+    if not available_tools:
+        print("All tools have been reviewed! Starting over with random selection.")
+        available_tools = tools
+    
+    # Pick random tool from available
+    import random
+    tool = random.choice(available_tools)
+    print(f"Selected tool: {tool['tool']} (from {len(available_tools)} available)")
+    
+    # Generate review
     review_content = generate_tool_review(tool)
     if review_content:
         slug = tool['tool'].lower().replace(" ", "-")
@@ -128,24 +147,35 @@ def main():
             }
         )
     
+    # Generate comparison with random other tool
     if len(tools) >= 2:
-        print("Generating comparison...")
-        comparison_content = generate_comparison(tools[0], tools[1])
-        if comparison_content:
-            slug = f"{tools[0]['tool']}-vs-{tools[1]['tool']}".lower().replace(" ", "-")
-            save_content(
-                "comparisons",
-                slug,
-                comparison_content,
-                {
-                    "title": f"{tools[0]['tool']} vs {tools[1]['tool']}: Complete Comparison ({datetime.now().year})",
-                    "date": datetime.utcnow().isoformat(),
-                    "draft": False,
-                    "tools": [tools[0]['tool'], tools[1]['tool']],
-                    "tags": ["comparison", "versus", tools[0]['category']],
-                    "description": f"Side-by-side comparison of {tools[0]['tool']} and {tools[1]['tool']}."
-                }
-            )
+        other_tools = [t for t in tools if t['tool'] != tool['tool']]
+        if other_tools:
+            other_tool = random.choice(other_tools)
+            print(f"Creating comparison: {tool['tool']} vs {other_tool['tool']}")
+            
+            comparison_content = generate_comparison(tool, other_tool)
+            if comparison_content:
+                # Check if comparison already exists
+                comp_slug = f"{tool['tool']}-vs-{other_tool['tool']}".lower().replace(" ", "-")
+                comp_path = CONTENT_DIR / "comparisons" / f"{comp_slug}.md"
+                
+                if not comp_path.exists():
+                    save_content(
+                        "comparisons",
+                        comp_slug,
+                        comparison_content,
+                        {
+                            "title": f"{tool['tool']} vs {other_tool['tool']}: Complete Comparison ({datetime.now().year})",
+                            "date": datetime.utcnow().isoformat(),
+                            "draft": False,
+                            "tools": [tool['tool'], other_tool['tool']],
+                            "tags": ["comparison", "versus", tool['category']],
+                            "description": f"Side-by-side comparison of {tool['tool']} and {other_tool['tool']}."
+                        }
+                    )
+                else:
+                    print(f"Comparison already exists: {comp_path}")
 
 if __name__ == "__main__":
     main()
