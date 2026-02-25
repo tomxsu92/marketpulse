@@ -9,7 +9,7 @@ PUBLIC_DIR = Path("public")
 
 CSS = """
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
 .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 20px; text-align: center; margin-bottom: 40px; }
 header h1 { font-size: 3em; margin-bottom: 10px; font-weight: 700; }
@@ -48,7 +48,6 @@ li { margin-bottom: 8px; }
 """
 
 def parse_frontmatter(content):
-    """Extract frontmatter and body from markdown"""
     if content.startswith('---'):
         parts = content.split('---', 2)
         if len(parts) >= 3:
@@ -61,15 +60,11 @@ def parse_frontmatter(content):
     return {}, content
 
 def md_to_html(md):
-    """Simple markdown to HTML conversion"""
     html = md
-    # Headers
     html = re.sub(r'^# (.+)$', r'<h1 class="single">\1</h1>', html, flags=re.MULTILINE)
     html = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)
     html = re.sub(r'^### (.+)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
-    # Bold
     html = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', html)
-    # Paragraphs
     lines = html.split('\n')
     new_lines = []
     in_list = False
@@ -95,12 +90,10 @@ def build_site():
     (PUBLIC_DIR / "tools").mkdir(exist_ok=True)
     (PUBLIC_DIR / "comparisons").mkdir(exist_ok=True)
     
-    # Build index
     articles = []
     tool_articles = []
     comparison_articles = []
     
-    # Process tools
     tools_dir = CONTENT_DIR / "tools"
     if tools_dir.exists():
         for f in tools_dir.glob("*.md"):
@@ -124,7 +117,6 @@ def build_site():
                     'filename': f.stem + '.html'
                 })
                 
-                # Create individual page
                 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,8 +128,8 @@ def build_site():
 <body>
 <div class="container-single">
 <div class="nav-single">
-<a href="../index.html">← Home</a>
-<a href="./index.html">All Reviews</a>
+<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
+<a href="https://tomxsu92.github.io/marketpulse/tools/index.html">All Reviews</a>
 </div>
 {md_to_html(body)}
 <div class="disclaimer">
@@ -148,7 +140,6 @@ def build_site():
 </html>"""
                 (PUBLIC_DIR / "tools" / f"{f.stem}.html").write_text(html_content)
     
-    # Process comparisons
     comp_dir = CONTENT_DIR / "comparisons"
     if comp_dir.exists():
         for f in comp_dir.glob("*.md"):
@@ -171,7 +162,6 @@ def build_site():
                     'filename': f.stem + '.html'
                 })
                 
-                # Create individual comparison page
                 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,8 +173,8 @@ def build_site():
 <body>
 <div class="container-single">
 <div class="nav-single">
-<a href="../index.html">← Home</a>
-<a href="./index.html">All Comparisons</a>
+<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
+<a href="https://tomxsu92.github.io/marketpulse/comparisons/index.html">All Comparisons</a>
 </div>
 {md_to_html(body)}
 <div class="disclaimer">
@@ -195,10 +185,8 @@ def build_site():
 </html>"""
                 (PUBLIC_DIR / "comparisons" / f"{f.stem}.html").write_text(html_content)
     
-    # Sort by date (newest first)
     articles.sort(key=lambda x: x['date'], reverse=True)
     
-    # Build index page
     index_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,9 +202,9 @@ def build_site():
 </header>
 <div class="container">
 <nav>
-<a href="./index.html">Home</a>
-<a href="./tools/index.html">Tool Reviews</a>
-<a href="./comparisons/index.html">Comparisons</a>
+<a href="https://tomxsu92.github.io/marketpulse/">Home</a>
+<a href="https://tomxsu92.github.io/marketpulse/tools/index.html">Tool Reviews</a>
+<a href="https://tomxsu92.github.io/marketpulse/comparisons/index.html">Comparisons</a>
 </nav>
 <div class="stats">
 <div class="stat"><div class="stat-number">15+</div><div class="stat-label">Tools Analyzed</div></div>
@@ -226,7 +214,7 @@ def build_site():
 <h2 style="margin-bottom: 20px; color: #333;">Latest Reviews</h2>
 """
     
-    for article in articles[:10]:  # Show last 10
+    for article in articles[:10]:
         badge_class = "badge-vs" if article['type'] == 'comparison' else ""
         category = "VS" if article['type'] == 'comparison' else article['category']
         folder = "comparisons" if article['type'] == 'comparison' else "tools"
@@ -235,7 +223,7 @@ def build_site():
         index_html += f"""
 <div class="article">
 <span class="badge {badge_class}">{category}</span>
-<h3><a href="{folder}/{article['filename']}">{article['title']}</a></h3>
+<h3><a href="https://tomxsu92.github.io/marketpulse/{folder}/{article['filename']}">{article['title']}</a></h3>
 <div class="date">Published: {article['date']}</div>
 <p class="excerpt">{excerpt}</p>
 </div>
@@ -255,7 +243,6 @@ def build_site():
     
     (PUBLIC_DIR / "index.html").write_text(index_html)
     
-    # Build tools listing page
     tools_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -271,8 +258,8 @@ def build_site():
 </header>
 <div class="container">
 <nav>
-<a href="../index.html">← Home</a>
-<a href="../comparisons/index.html">Comparisons</a>
+<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
+<a href="https://tomxsu92.github.io/marketpulse/comparisons/index.html">Comparisons</a>
 </nav>
 <h2 style="margin-bottom: 20px;">All Reviews</h2>
 """
@@ -281,7 +268,7 @@ def build_site():
         tools_html += f"""
 <div class="article">
 <span class="badge">{tool['category']}</span>
-<h3><a href="{tool['filename']}">{tool['title']}</a></h3>
+<h3><a href="https://tomxsu92.github.io/marketpulse/tools/{tool['filename']}">{tool['title']}</a></h3>
 </div>
 """
     
@@ -295,7 +282,6 @@ def build_site():
     
     (PUBLIC_DIR / "tools" / "index.html").write_text(tools_html)
     
-    # Build comparisons listing page
     comp_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -311,8 +297,8 @@ def build_site():
 </header>
 <div class="container">
 <nav>
-<a href="../index.html">← Home</a>
-<a href="../tools/index.html">Tool Reviews</a>
+<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
+<a href="https://tomxsu92.github.io/marketpulse/tools/index.html">Tool Reviews</a>
 </nav>
 <h2 style="margin-bottom: 20px;">Head-to-Head Comparisons</h2>
 """
@@ -321,7 +307,7 @@ def build_site():
         comp_html += f"""
 <div class="article">
 <span class="badge badge-vs">VS</span>
-<h3><a href="{comp['filename']}">{comp['title']}</a></h3>
+<h3><a href="https://tomxsu92.github.io/marketpulse/comparisons/{comp['filename']}">{comp['title']}</a></h3>
 </div>
 """
     
