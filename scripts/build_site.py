@@ -7,6 +7,8 @@ from datetime import datetime
 CONTENT_DIR = Path("content")
 PUBLIC_DIR = Path("public")
 
+BASE_URL = "https://tomxsu92.github.io/marketpulse"
+
 CSS = """
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
@@ -128,8 +130,8 @@ def build_site():
 <body>
 <div class="container-single">
 <div class="nav-single">
-<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
-<a href="https://tomxsu92.github.io/marketpulse/tools/index.html">All Reviews</a>
+<a href="{BASE_URL}/">← Home</a>
+<a href="{BASE_URL}/tools/index.html">All Reviews</a>
 </div>
 {md_to_html(body)}
 <div class="disclaimer">
@@ -173,8 +175,8 @@ def build_site():
 <body>
 <div class="container-single">
 <div class="nav-single">
-<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
-<a href="https://tomxsu92.github.io/marketpulse/comparisons/index.html">All Comparisons</a>
+<a href="{BASE_URL}/">← Home</a>
+<a href="{BASE_URL}/comparisons/index.html">All Comparisons</a>
 </div>
 {md_to_html(body)}
 <div class="disclaimer">
@@ -202,9 +204,9 @@ def build_site():
 </header>
 <div class="container">
 <nav>
-<a href="https://tomxsu92.github.io/marketpulse/">Home</a>
-<a href="https://tomxsu92.github.io/marketpulse/tools/index.html">Tool Reviews</a>
-<a href="https://tomxsu92.github.io/marketpulse/comparisons/index.html">Comparisons</a>
+<a href="{BASE_URL}/">Home</a>
+<a href="{BASE_URL}/tools/index.html">Tool Reviews</a>
+<a href="{BASE_URL}/comparisons/index.html">Comparisons</a>
 </nav>
 <div class="stats">
 <div class="stat"><div class="stat-number">15+</div><div class="stat-label">Tools Analyzed</div></div>
@@ -223,7 +225,7 @@ def build_site():
         index_html += f"""
 <div class="article">
 <span class="badge {badge_class}">{category}</span>
-<h3><a href="https://tomxsu92.github.io/marketpulse/{folder}/{article['filename']}">{article['title']}</a></h3>
+<h3><a href="{BASE_URL}/{folder}/{article['filename']}">{article['title']}</a></h3>
 <div class="date">Published: {article['date']}</div>
 <p class="excerpt">{excerpt}</p>
 </div>
@@ -258,8 +260,8 @@ def build_site():
 </header>
 <div class="container">
 <nav>
-<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
-<a href="https://tomxsu92.github.io/marketpulse/comparisons/index.html">Comparisons</a>
+<a href="{BASE_URL}/">← Home</a>
+<a href="{BASE_URL}/comparisons/index.html">Comparisons</a>
 </nav>
 <h2 style="margin-bottom: 20px;">All Reviews</h2>
 """
@@ -268,7 +270,7 @@ def build_site():
         tools_html += f"""
 <div class="article">
 <span class="badge">{tool['category']}</span>
-<h3><a href="https://tomxsu92.github.io/marketpulse/tools/{tool['filename']}">{tool['title']}</a></h3>
+<h3><a href="{BASE_URL}/tools/{tool['filename']}">{tool['title']}</a></h3>
 </div>
 """
     
@@ -297,8 +299,8 @@ def build_site():
 </header>
 <div class="container">
 <nav>
-<a href="https://tomxsu92.github.io/marketpulse/">← Home</a>
-<a href="https://tomxsu92.github.io/marketpulse/tools/index.html">Tool Reviews</a>
+<a href="{BASE_URL}/">← Home</a>
+<a href="{BASE_URL}/tools/index.html">Tool Reviews</a>
 </nav>
 <h2 style="margin-bottom: 20px;">Head-to-Head Comparisons</h2>
 """
@@ -307,7 +309,7 @@ def build_site():
         comp_html += f"""
 <div class="article">
 <span class="badge badge-vs">VS</span>
-<h3><a href="https://tomxsu92.github.io/marketpulse/comparisons/{comp['filename']}">{comp['title']}</a></h3>
+<h3><a href="{BASE_URL}/comparisons/{comp['filename']}">{comp['title']}</a></h3>
 </div>
 """
     
