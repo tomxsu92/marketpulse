@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-26T06:35:48.233521",
+  "timestamp": "2026-08-27T17:11:51.907693",
   "tools": [
     {
       "tool": "Notion",
@@ -11,7 +11,7 @@
         "OneNote",
         "Roam Research"
       ],
-      "timestamp": "2026-08-26T06:35:48.495158",
+      "timestamp": "2026-08-27T17:11:52.190213",
       "pricing_tiers": [
         {
           "name": "Free",
@@ -39,7 +39,7 @@
           ]
         }
       ],
-      "last_updated": "2026-08-26"
+      "last_updated": "2026-08-27"
     },
     {
       "tool": "Airtable",
@@ -51,7 +51,7 @@
         "Smartsheet",
         "Monday.com"
       ],
-      "timestamp": "2026-08-26T06:35:49.495479",
+      "timestamp": "2026-08-27T17:11:53.190616",
       "pricing_tiers": [
         {
           "name": "Free",
@@ -79,7 +79,7 @@
           ]
         }
       ],
-      "last_updated": "2026-08-26"
+      "last_updated": "2026-08-27"
     },
     {
       "tool": "Figma",
@@ -91,7 +91,7 @@
         "Adobe XD",
         "InVision"
       ],
-      "timestamp": "2026-08-26T06:35:50.495665",
+      "timestamp": "2026-08-27T17:11:54.190801",
       "pricing_tiers": [
         {
           "name": "Free",
@@ -119,7 +119,7 @@
           ]
         }
       ],
-      "last_updated": "2026-08-26"
+      "last_updated": "2026-08-27"
     },
     {
       "tool": "Linear",
@@ -131,7 +131,7 @@
         "Asana",
         "Trello"
       ],
-      "timestamp": "2026-08-26T06:35:51.495806",
+      "timestamp": "2026-08-27T17:11:55.190988",
       "pricing_tiers": [
         {
           "name": "Free",
@@ -159,7 +159,7 @@
           ]
         }
       ],
-      "last_updated": "2026-08-26"
+      "last_updated": "2026-08-27"
     },
     {
       "tool": "HubSpot",
@@ -171,7 +171,7 @@
         "Pipedrive",
         "Zoho CRM"
       ],
-      "timestamp": "2026-08-26T06:35:52.495943",
+      "timestamp": "2026-08-27T17:11:56.191182",
       "pricing_tiers": [
         {
           "name": "Free",
@@ -199,7 +199,7 @@
           ]
         }
       ],
-      "last_updated": "2026-08-26"
+      "last_updated": "2026-08-27"
     }
   ],
   "trends": {
